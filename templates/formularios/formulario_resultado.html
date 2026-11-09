@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do formulário</title>
+</head>
+<body>
+    {% if pessoa %}
+    <h1>Dados: {{ pessoa.nome }} </h1>
+    <p>Email: {{pessoa.email}} </p>
+    <p>Peso:{{pessoa.peso}} Kg </p>
+    <p>Idade: {{pessoa.idade}} </p>
+    {% endif %}
+</body>
+</html>

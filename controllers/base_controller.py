@@ -12,7 +12,11 @@ class BaseController:
     def registrar_rotas(self):
         #Percorre cada item da lista self.rotas definido na classe filha
         for rota in self.rotas:
-            #Desempacota a tupla em 3 parametros: o caminho da URL, o nome interno da rota e a funcao executada
-            endereco_url, nome_rota, funcao_resposta = rota
-            #Registra a rota no flask é como usar o @app.route('/home') sobre a funcao
-            self.app.add_url_rule(endereco_url, nome_rota, funcao_resposta)
+            if len(rota) == 3:
+                #Desempacota a tupla em 3 parametros: o caminho da URL, o nome interno da rota e a funcao executada
+                endereco_url, nome_rota, funcao_resposta = rota
+                #Registra a rota no flask é como usar o @app.route('/home') sobre a funcao
+                self.app.add_url_rule(endereco_url, nome_rota, funcao_resposta)
+            elif len(rota) == 4:
+                endereco_url, nome_rota, funcao_resposta, metodos = rota
+                self.app.add_url_rule(endereco_url,nome_rota, funcao_resposta, methods = metodos)
