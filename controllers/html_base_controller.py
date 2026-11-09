@@ -6,7 +6,7 @@ class HTMLBaseController(BaseController):
     def __init__(self, app):
         #Cria o atributo rotas -> ('a URL', 'nome do endpoint', 'a funcao que será executada')
         self.rotas = [
-            ('/', 'home', self.home)
+            ('/', 'home', self.proteger_rota(self.home))
         ]
         #inicia a classe mãe (BaseController)
         #self.rotas precisa vir antes , pois o hasattr retornaria false e nao registraria rotas se fosse criado dps

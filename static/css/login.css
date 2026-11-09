@@ -1,0 +1,156 @@
+/* ===== Login: CSS independente (não depende do style.css) ===== */
+
+:root {
+  --bg: #1b1740;
+  --panel: #2a2466;
+  --panel-dark: #120f2e;
+  --text: #f4f1ff;
+  --muted: #b3acdf;
+  --yellow: #ffd23f;
+  --mint: #3ef0b1;
+  --pink: #ff4f8b;
+  --font-game: "Press Start 2P", "Courier New", monospace;
+  --font-body: "Nunito", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.login-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.login { width: 100%; max-width: 400px; }
+
+/* ---------- Logo ---------- */
+.login-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--yellow);
+}
+.login-brand .brand-icon { font-size: 28px; color: var(--pink); }
+.login-brand .brand-name {
+  font-family: var(--font-game);
+  font-size: 20px;
+  text-shadow: 3px 3px 0 var(--pink);
+}
+
+/* ---------- Cartão ---------- */
+.login-card {
+  padding: 28px 24px;
+  background: var(--panel);
+  border: 3px solid var(--text);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--panel-dark);
+}
+
+.login-card h1 {
+  margin-bottom: 12px;
+  font-family: var(--font-game);
+  font-size: 18px;
+  line-height: 1.6;
+}
+.login-sub { margin-bottom: 20px; color: var(--muted); }
+
+/* ---------- Campos ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label { font-weight: 800; font-size: 14px; }
+
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="text"] {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--panel-dark);
+  border: 3px solid var(--muted);
+  border-radius: 6px;
+}
+.field input::placeholder { color: #7a73ad; }
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--mint);
+  box-shadow: 0 0 0 3px rgba(62, 240, 177, .35);
+}
+.field.has-error input { border-color: var(--pink); }
+
+.field-error { min-height: 18px; font-size: 13px; color: var(--pink); }
+
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 84px; }
+.toggle-pass {
+  position: absolute;
+  top: 50%; right: 8px;
+  transform: translateY(-50%);
+  padding: 6px 8px;
+  font-family: var(--font-game);
+  font-size: 8px;
+  color: var(--yellow);
+  background: transparent;
+  border: 2px solid var(--yellow);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ---------- Lembrar / links ---------- */
+.login-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.check { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--muted); }
+.check input { width: 18px; height: 18px; accent-color: var(--mint); }
+
+.link { color: var(--mint); font-weight: 800; }
+
+.toggle-pass:focus-visible,
+.link:focus-visible,
+.check input:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.form-error { min-height: 22px; margin-bottom: 8px; font-size: 14px; color: var(--pink); }
+
+/* ---------- Botão ---------- */
+.btn {
+  padding: 12px 16px;
+  font-family: var(--font-game);
+  font-size: 10px;
+  color: var(--bg);
+  background: var(--yellow);
+  border: 3px solid var(--text);
+  border-radius: 6px;
+  box-shadow: 0 4px 0 #a98600;
+  cursor: pointer;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a98600; }
+.btn-full { width: 100%; padding: 16px; font-size: 12px; }
+.btn[disabled] { opacity: .6; cursor: wait; }
+
+.login-foot { margin-top: 20px; text-align: center; font-size: 14px; color: var(--muted); }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 420px) {
+  .login-row { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
