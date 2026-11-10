@@ -34,7 +34,7 @@ class LoginController(BaseController):
             return redirect(url_for("home"))
         
         else:
-            return render_template('login.html')
+            return render_template('login/login.html', erro = "E-mail ou senha incorretos")
 
     def logout(self):
         session.clear()

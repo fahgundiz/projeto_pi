@@ -63,7 +63,7 @@ body.login-page {
 .login-sub { margin-bottom: 20px; color: var(--muted); }
 
 /* ---------- Campos ---------- */
-.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 5px; }
 .field label { font-weight: 800; font-size: 14px; }
 
 .field input[type="email"],

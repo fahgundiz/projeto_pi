@@ -14,10 +14,13 @@
   <main class="login">
     <div class="login-brand">
       <span class="brand-icon" aria-hidden="true">★</span>
-      <span class="brand-name">QuestApp</span>
+      <span class="brand-name">Fitlevel</span>
     </div>
 
     <form class="card login-card" id="loginForm" method="POST" action="{{url_for('entrar')}}" novalidate>
+      {% if erro %}
+      <p class="erro">Erro: {{ erro }} </p>
+      {% endif %}
       <h1>Entrar</h1>
       <p class="login-sub">Continue sua jornada de onde parou.</p>
 
