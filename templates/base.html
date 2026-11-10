@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QuestApp</title>
+  <title>{% block title %} Fitlevel {% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
@@ -12,54 +12,45 @@
 <body>
 
   <header class="navbar">
-    <a class="brand" href="#inicio">
-      <span class="brand-icon" aria-hidden="true">★</span>
-      <span class="brand-name">QuestApp</span>
+
+    <a href="#" class="logo">
+      <span class="logo-icon">★</span>
+      <span class="logo-name">FitLevel</span>
     </a>
 
-    <nav class="nav" aria-label="Principal">
-      <button class="nav-btn is-active" data-view="inicio"><span aria-hidden="true">⌂</span>Início</button>
-      <button class="nav-btn" data-view="missoes"><span aria-hidden="true">⚔</span>Missões</button>
-      <button class="nav-btn" data-view="ranking"><span aria-hidden="true">♛</span>Ranking</button>
-      <button class="nav-btn" data-view="perfil"><span aria-hidden="true">☻</span>Perfil</button>
+    <nav class="nav" aria-label="nav principal">
+      <button class="nav-btn ativo" data-view="hoje" aria-current="page">
+        <span>🏠</span> Hoje
+      </button>
+
+      <button class="nav-btn" data-view="habitos">
+        <span>✅</span> Hábitos
+      </button>
+
+      <button class="nav-btn" data-view="progresso">
+        <span>📈</span> Progresso
+      </button>
+
+
     </nav>
 
-    <div class="stats">
+    <div class="status">
+
       <div class="level">
-        <span class="level-label">NV <b id="level">1</b></span>
-        <div class="xp-bar" role="progressbar" aria-label="Experiência" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <div class="xp-fill" id="xpFill"></div>
+        <span class="level-label">Nível 1</span>
+        <div class="xp-bar">
+
+          <div class="xp-fill"></div>
         </div>
       </div>
-      <div class="coins"><span aria-hidden="true">●</span> <b id="coins">0</b></div>
+
+      <div class="coins">🔥 3 dias</div>
     </div>
+
   </header>
 
   <main class="content">
-    <section class="view is-active" id="inicio">
-      <h1>Bem-vindo, jogador!</h1>
-      <p>Conclua missões para ganhar XP e moedas.</p>
-      <div class="card">
-        <h2>Missão do dia</h2>
-        <p>Complete uma tarefa hoje.</p>
-        <button class="btn" id="completeBtn">Concluir missão +20 XP</button>
-      </div>
-    </section>
-
-    <section class="view" id="missoes">
-      <h1>Missões</h1>
-      <div class="card"><p>Suas missões aparecem aqui.</p></div>
-    </section>
-
-    <section class="view" id="ranking">
-      <h1>Ranking</h1>
-      <div class="card"><p>Veja quem está no topo.</p></div>
-    </section>
-
-    <section class="view" id="perfil">
-      <h1>Perfil</h1>
-      <div class="card"><p>Seus dados e conquistas.</p></div>
-    </section>
+    {% block content %} {% endblock %}
   </main>
 
   <script src="/static/script/base.js"></script>

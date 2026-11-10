@@ -1,1 +1,28 @@
 {% extends "base.html" %}
+
+{% block conten %}
+<section class="view is-active" id="inicio">
+      <h1>Bem-vindo, jogador!</h1>
+      <p>Conclua missões para ganhar XP e moedas.</p>
+      <div class="card">
+        <h2>Missão do dia</h2>
+        <p>Complete uma tarefa hoje.</p>
+        <button class="btn" id="completeBtn">Concluir missão +20 XP</button>
+      </div>
+    </section>
+
+    <section class="view" id="missoes">
+      <h1>Missões</h1>
+      <div class="card"><p>Suas missões aparecem aqui.</p></div>
+    </section>
+
+    <section class="view" id="ranking">
+      <h1>Ranking</h1>
+      <div class="card"><p>Veja quem está no topo.</p></div>
+    </section>
+
+    <section class="view" id="perfil">
+      <h1>Perfil</h1>
+      <div class="card"><p>Seus dados e conquistas.</p></div>
+    </section>
+{% endblock %}
