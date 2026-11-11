@@ -69,6 +69,9 @@
   gap: 8px;
   margin-left: 12px;
 }
+.logout {
+  text-decoration: none;
+}
 .nav-btn {
   display: flex; /* Mesma ideia do logo, tornar flexivel os filhos(emoji e texto) e alinha pelo centro deles */
   align-items: center;

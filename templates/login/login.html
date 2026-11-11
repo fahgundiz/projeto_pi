@@ -22,7 +22,9 @@
       <h1>Bem-vindo de volta!</h1>
       <p class="subtitulo">Entre para continuar sua sequência de hoje.</p>
 
-      <div class="aviso" id="aviso" role="alert" hidden></div>
+      <div class="aviso" id="aviso" role="alert" hidden>
+        {{ erro }}
+      </div>
 
       <form id="form-login" method="POST" action="{{url_for('entrar')}}" novalidate>
 
