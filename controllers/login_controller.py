@@ -19,7 +19,7 @@ class LoginController(BaseController):
 
     def entrar(self):
         email = request.form.get("email")
-        senha = request.form.get("password")
+        senha = request.form.get("senha")
 
         usuario_valido = {
             "email":"teste@gmail.com",

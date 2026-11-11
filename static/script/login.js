@@ -1,64 +1,100 @@
-const form = document.getElementById("loginForm");
-const emailInput = document.getElementById("email");
-const passInput = document.getElementById("password");
-const togglePass = document.getElementById("togglePass");
-const formError = document.getElementById("formError");
-const submitBtn = document.getElementById("submitBtn");
+const form       = document.getElementById('form-login');
+const campoEmail = document.getElementById('email');
+const campoSenha = document.getElementById('senha');
+const erroEmail  = document.getElementById('erro-email');
+const erroSenha  = document.getElementById('erro-senha');
+const botao      = document.getElementById('btn-entrar');
+const textoBotao = botao.querySelector('.btn-texto');
+const verSenha   = document.getElementById('ver-senha');
+const lembrar    = document.getElementById('lembrar');
 
-// ---------- Mostrar / ocultar senha ----------
-togglePass.addEventListener("click", () => {
-  const show = passInput.type === "password";
-  passInput.type = show ? "text" : "password";
-  togglePass.textContent = show ? "Ocultar" : "Mostrar";
-  togglePass.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
+/* ---------- Mostrar / esconder senha ---------- */
+verSenha.addEventListener('click', () => {
+  const visivel = campoSenha.type === 'text';
+  campoSenha.type = visivel ? 'password' : 'text';
+  verSenha.setAttribute('aria-pressed', String(!visivel));
+  verSenha.setAttribute('aria-label', visivel ? 'Mostrar senha' : 'Esconder senha');
+  verSenha.textContent = visivel ? '👁️' : '🙈';
 });
 
-// ---------- Validação ----------
-function setError(input, errorId, message) {
-  document.getElementById(errorId).textContent = message;
-  input.closest(".field").classList.toggle("has-error", Boolean(message));
-  return !message;
+/* ---------- Validação ---------- */
+function mostrarErro(campo, elementoErro, mensagem) {
+  campo.setAttribute('aria-invalid', 'true');
+  elementoErro.textContent = mensagem;
 }
 
-function validate() {
-  const email = emailInput.value.trim();
-  const pass = passInput.value;
-
-  const emailOk = setError(
-    emailInput, "emailError",
-    !email ? "Digite seu e-mail."
-    : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "Use um e-mail válido, como voce@email.com."
-    : ""
-  );
-  const passOk = setError(
-    passInput, "passwordError",
-    !pass ? "Digite sua senha."
-    : pass.length < 6 ? "A senha precisa ter pelo menos 6 caracteres."
-    : ""
-  );
-  return emailOk && passOk;
+function limparErro(campo, elementoErro) {
+  campo.removeAttribute('aria-invalid');
+  elementoErro.textContent = '';
 }
 
-[emailInput, passInput].forEach(i =>
-  i.addEventListener("input", () => { formError.textContent = ""; })
-);
-
-// ---------- Envio ----------
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  formError.textContent = "";
-  if (!validate()) return;
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Entrando...";
-
-  try {
-    // TODO: troque este trecho pela chamada real ao seu servidor
-    await new Promise(r => setTimeout(r, 800));
-    window.location.href = "index.html";
-  } catch (err) {
-    formError.textContent = "Não foi possível entrar. Tente de novo.";
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Entrar";
+function validarEmail() {
+  const valor = campoEmail.value.trim();
+  if (!valor) {
+    mostrarErro(campoEmail, erroEmail, 'Digite seu e-mail.');
+    return false;
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
+    mostrarErro(campoEmail, erroEmail, 'Esse e-mail parece incompleto. Exemplo: nome@exemplo.com');
+    return false;
+  }
+  limparErro(campoEmail, erroEmail);
+  return true;
+}
+
+function validarSenha() {
+  const valor = campoSenha.value;
+  if (!valor) {
+    mostrarErro(campoSenha, erroSenha, 'Digite sua senha.');
+    return false;
+  }
+  limparErro(campoSenha, erroSenha);
+  return true;
+}
+
+campoEmail.addEventListener('blur', validarEmail);
+campoSenha.addEventListener('blur', validarSenha);
+campoEmail.addEventListener('input', () => {
+  if (campoEmail.hasAttribute('aria-invalid')) validarEmail();
 });
+campoSenha.addEventListener('input', () => {
+  if (campoSenha.hasAttribute('aria-invalid')) validarSenha();
+});
+
+/* ---------- Estado de carregamento ---------- */
+function carregando(ativo) {
+  botao.disabled = ativo;
+  botao.classList.toggle('is-carregando', ativo);
+  textoBotao.textContent = ativo ? 'Entrando...' : 'Entrar';
+}
+
+/* ---------- Envio ---------- */
+form.addEventListener('submit', (evento) => {
+  const emailOk = validarEmail();
+  const senhaOk = validarSenha();
+
+  // Se algo estiver errado, cancela o envio e leva o foco ao campo com problema
+  if (!emailOk || !senhaOk) {
+    evento.preventDefault();
+    (!emailOk ? campoEmail : campoSenha).focus();
+    return;
+  }
+
+  // Tudo certo: NÃO chamamos preventDefault, então o navegador envia para o Flask
+  if (lembrar.checked) {
+    localStorage.setItem('emailLembrado', campoEmail.value.trim());
+  } else {
+    localStorage.removeItem('emailLembrado');
+  }
+  carregando(true);
+});
+
+/* Se a pessoa voltar para esta página (botão "voltar"), o botão não pode ficar travado */
+window.addEventListener('pageshow', () => carregando(false));
+
+/* ---------- Preencher o e-mail lembrado ---------- */
+const emailSalvo = localStorage.getItem('emailLembrado');
+if (emailSalvo && !campoEmail.value) {
+  campoEmail.value = emailSalvo;
+  lembrar.checked = true;
+}
