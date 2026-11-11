@@ -21,10 +21,12 @@
     <section class="card login-card">
       <h1>Bem-vindo de volta!</h1>
       <p class="subtitulo">Entre para continuar sua sequência de hoje.</p>
-
-      <div class="aviso" id="aviso" role="alert" hidden>
+      
+      {% if erro %}
+      <div class="aviso" id="aviso" role="alert">
         {{ erro }}
       </div>
+      {% endif %}
 
       <form id="form-login" method="POST" action="{{url_for('entrar')}}" novalidate>
 
