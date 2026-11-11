@@ -107,3 +107,83 @@
   outline: 3px solid var(--principal);
   outline-offset: 3px;
 }
+/* ---------- Estatísticas (XP e sequência) ---------- */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto; /* Empurra o bloco para o canto direito */
+}
+
+.level {
+  display: flex; /* Permite o nivel e a barra de xp ficarem um em cima do outro */
+  flex-direction: column;
+  gap: 6px;
+}
+.level-label {
+  font-family: var(--fonte-titulo); /* Configurações do texto da barra de XP */
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: var(--principal-hover);
+}
+.xp-bar {
+  border: 2px solid red;
+  width: 0%;
+  height: 100%;
+  background: var(--concluido);
+  border-radius: 999px;
+  transition: width .4s ease;
+}
+
+.coins { /* Streak do foguinho */
+  padding: 4px 12px;
+  font-family: var(--fonte-titulo);
+  font-weight: 800;
+  font-size: .75rem;
+  color: var(--texto);
+  background-color: var(--sequencia-suave);
+  border: 2px solid var(--sequencia);
+  border-radius: 999px;
+}
+
+/* ---------- Responsividade Celular ---------- */
+@media (max-width: 760px) {
+  .navbar {
+    padding: 0 14px;
+    gap: 14px;
+  }
+  .logo-name {
+    font-size: 1rem;
+  }
+  .xp-bar {
+    width: 80px;
+  }
+  .nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0; /* Coloca o nav na parte debaixo do celular */
+    justify-content: space-around;
+    margin: 0;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom, 0px)); /* Evita que a área fique sobreposta na parte de gestos do iphone */
+    /* env busca no dispositivo uma informacao sobre o ambiente de tela */
+    /*No iphone o safe-area... é 34px, mas caso o celular nao tenha o valor é ZERO */
+    background: var(--superficie);
+    border-top: 2px solid var(--borda);
+  }
+  .nav-btn {
+    flex-direction: column; /* icone fica em cima do texto */
+    gap: 4px;
+    font-size: 11px;
+    padding: 8px 10px;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .nav-btn.ativo {
+    box-shadow: none;
+  }
+  .nav-btn span {
+    font-size: 18px;
+  }
+  .content {
+    padding-bottom: 110px; /* Evita que o conteúdo fique atrás da barra */
+  }
+}

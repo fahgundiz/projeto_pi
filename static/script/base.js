@@ -1,47 +1,31 @@
-// ---------- Navegação entre telas ----------
-const navButtons = document.querySelectorAll(".nav-btn");
-const views = document.querySelectorAll(".view");
+const botoes = document.querySelectorAll('.nav-btn');
+const telas = document.querySelectorAll('.view');
 
-function showView(id) {
-  views.forEach(v => v.classList.toggle("is-active", v.id === id));
-  navButtons.forEach(b => {
-    const active = b.dataset.view === id;
-    b.classList.toggle("is-active", active);
-    if (active) b.setAttribute("aria-current", "page");
-    else b.removeAttribute("aria-current");
-  });
-}
+// Percore todos os 3 botoes do nav
+botoes.forEach(botao => {
+  //Para cada botao, espere um clique
+  botao.addEventListener('click', () =>{
+    //Quando um botao for clicado, desativa todos
+    botoes.forEach(b =>{
+      b.classList.remove('ativo');
+      b.removeAttribute('aria-current')
+    })
+    //Desativa todas as telas
+    telas.forEach(t => {
+      t.classList.remove('ativo')
+    })
 
-navButtons.forEach(btn =>
-  btn.addEventListener("click", () => showView(btn.dataset.view))
-);
+    //Pinta o botao selecionado de 'roxo'
+    botao.classList.add('ativo');
+    //avisa o leitor de tela da pagina atual
+    botao.setAttribute('aria-current','pagina_ativa');
 
-// ---------- XP, nível e moedas ----------
-const state = { xp: 0, level: 1, coins: 0 };
-const XP_PER_LEVEL = 100;
+    //busca o id da página(section: habitos, progresso e hoje) clicada
+    const idDaTela = botao.dataset.view;
+    //entra a section clicada e adiciona ativo fazendo ela aparecer
+    document.getElementById(idDaTela).classList.add('ativo')
+  })
 
-const xpFill = document.getElementById("xpFill");
-const xpBar = document.querySelector(".xp-bar");
-const levelEl = document.getElementById("level");
-const coinsEl = document.getElementById("coins");
+  
 
-function render() {
-  xpFill.style.width = state.xp + "%";
-  xpBar.setAttribute("aria-valuenow", state.xp);
-  levelEl.textContent = state.level;
-  coinsEl.textContent = state.coins;
-}
-
-function addXP(amount) {
-  state.xp += amount;
-  state.coins += 5;
-  while (state.xp >= XP_PER_LEVEL) {
-    state.xp -= XP_PER_LEVEL;
-    state.level++;
-  }
-  render();
-}
-
-document.getElementById("completeBtn").addEventListener("click", () => addXP(20));
-
-render();
+})
