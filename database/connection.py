@@ -58,9 +58,7 @@ class Banco:
                 use_pure = True
             )
             
-            self.cursor = self.conexao.cursor()
-            self.cursor.execute("SELECT DATABASE()")
-            print(f"Banco atual: {self.cursor.fetchone()[0]}")
+            self.cursor = self.conexao.cursor(dictionary=True)
 
 
         except Error as e:
@@ -72,3 +70,15 @@ class Banco:
             self.cursor.close()
         if self.conexao:
             self.conexao.close()
+
+    def executar(self, sql, parametros=None):
+        self.cursor.execute(sql, parametros or ())
+        self.conexao.commit()
+
+    def consultar(self, sql, parametros=None):
+        self.cursor.execute(sql, parametros or ())
+        return self.cursor.fetchall()
+
+    def consultar_um(self, sql, parametros=None):
+        self.cursor.execute(sql, parametros or ())
+        return self.cursor.fetchone()
