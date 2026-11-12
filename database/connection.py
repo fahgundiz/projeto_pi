@@ -36,9 +36,7 @@ class Banco:
 
             #========= Cria o banco se não existe =========
             if existe_banco == 0:
-                cursor = conexao.cursor()
                 cursor.execute(f"CREATE DATABASE `{nome_banco}`")
-                cursor.close()
                 print("Banco criado")
             else:
                 print("Banco já existia")
@@ -57,8 +55,9 @@ class Banco:
                 port = int(os.getenv("DB_PORT")),
                 use_pure = True
             )
-            
-            self.cursor = self.conexao.cursor(dictionary=True)
+
+            #Cria o atributo do cursor -> os dados vem como dicionario e o buferred true evita erros caso alguma consulta ficou pendente
+            self.cursor = self.conexao.cursor(dictionary=True, buffered=True)
 
 
         except Error as e:
