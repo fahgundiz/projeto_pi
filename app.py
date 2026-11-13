@@ -1,6 +1,10 @@
 from flask import Flask
+
 from controllers.html_base_controller import HTMLBaseController
 from controllers.login_controller import LoginController
+from database.connection import Banco
+from database.tables import Tabelas
+
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
@@ -21,6 +25,15 @@ limiter = Limiter(
 )
 
 app.secret_key = "chave_para_teste"
+
+
+#cria a instância do banco
+banco = Banco()
+#cria a instancia da tabela
+tabelas = Tabelas(banco)
+#Cria as tabelas do banco
+tabelas.criar_tabelas()
+
 
 #Registra as rotas
 HTMLBaseController(app)
