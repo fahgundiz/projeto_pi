@@ -1,5 +1,5 @@
 from database.connection import Banco
-
+from services.usuario_service import UsuarioService
 
 class Tabelas:
     def __init__(self, banco):
@@ -9,6 +9,8 @@ class Tabelas:
         self.criar_tabela_usuario()
         self.criar_tabela_logins()
         self.criar_tabela_ratelimit()
+
+        self.criar_administrador()
 
     def criar_tabela_usuario(self):
         sql = """
@@ -77,3 +79,21 @@ class Tabelas:
 
     def criar_tabela_auditoria(self):
         pass
+
+    def criar_administrador(self):
+
+        existe_usuario = self.banco.consultar_um(
+            """
+                SELECT id FROM usuarios WHERE usuario = %s
+            """,("admin",)
+        )
+
+        if not existe_usuario:
+            #Criptografar a senha
+            senha_hash = UsuarioService.gerar_hash_senha(senha = "123456")
+
+            sql = """
+                INSERT INTO usuarios (usuario, email, senha, data_nascimento, perfil)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            self.banco.executar(sql, ("admin", "admin@gmail.com", senha_hash, "1997-09-09", "administrador"))

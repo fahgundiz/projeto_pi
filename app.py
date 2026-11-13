@@ -35,6 +35,8 @@ tabelas = Tabelas(banco)
 tabelas.criar_tabelas()
 
 
+
+
 #Registra as rotas
 HTMLBaseController(app)
 LoginController(app)
