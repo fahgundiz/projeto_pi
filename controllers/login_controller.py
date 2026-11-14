@@ -40,6 +40,9 @@ class LoginController(BaseController):
         #Buscar o usuário pelo E-mail (Dicionário de dados do usuário)
         usuario = self.usuario_service.buscar_usuario_pelo_email(email)
 
+        if not usuario:
+            return render_template('login/login.html', erro = "E-mail ou senha incorretos")
+
         usuario_id = usuario["id"]
         usuario_senha = usuario["senha"]
 
@@ -48,7 +51,6 @@ class LoginController(BaseController):
         if email == usuario["email"] and senha_correta_ou_falsa:
             session["usuario_logado"] = True
             session["email"] = email
-            session["password"] = senha
 
             #Registrar login na tabela logins
             self.login_service.registrar_login(usuario_id)

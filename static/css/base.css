@@ -86,6 +86,7 @@
   border-radius: 14px;
   box-shadow: 0 4px 0 var(--borda); /* Faz parecer que o botão é 3d */
   cursor: pointer;
+  text-decoration: none;
   transition: transform .1s, box-shadow .1s, background .15s; /* Transicao da sombra, fundo e transform */
 }
 
