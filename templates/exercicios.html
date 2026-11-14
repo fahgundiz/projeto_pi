@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block styles %}
+
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <h1>Exercícios</h1>
+    <form action="{{url_for('exercicios')}}">
+        <div class="filtro-grupo">
+
+            <label for="acao">Grupo muscular:</label>
+
+            <input type="text" id="acao" name="acao" value="{{ acao or '' }}" placeholder="Ex.: Peito">
+
+        </div>
+    </form>
+
+    <div class="exercicios-container">
+        {% for exercicio in exercicios %}
+            <div class="exercicio">
+                <p>Exercício: {{ exercicio["nome"] }} </p>
+                <p>Grupo muscular: {{ exercicio["grupo_muscular"] }} </p>
+            </div>
+        {% endfor %}
+    </div>
+    
+</section>
+
+{% endblock %}

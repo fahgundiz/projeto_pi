@@ -2,6 +2,7 @@ from flask import Flask
 
 from controllers.html_base_controller import HTMLBaseController
 from controllers.login_controller import LoginController
+from controllers.usuario_controller import UsuarioController
 from database.connection import Banco
 from database.tables import Tabelas
 
@@ -40,6 +41,7 @@ tabelas.criar_tabelas()
 #Registra as rotas
 HTMLBaseController(app)
 LoginController(app)
+UsuarioController(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
