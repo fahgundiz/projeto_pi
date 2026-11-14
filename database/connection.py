@@ -71,8 +71,14 @@ class Banco:
             self.conexao.close()
 
     def executar(self, sql, parametros=None):
-        self.cursor.execute(sql, parametros or ())
-        self.conexao.commit()
+        try:
+
+            self.cursor.execute(sql, parametros or ())
+            self.conexao.commit()
+            return self.cursor.lastrowid
+        except Error:
+            self.conexao.rollback()
+            raise
 
     def consultar(self, sql, parametros=None):
         self.cursor.execute(sql, parametros or ())

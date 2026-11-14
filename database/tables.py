@@ -9,8 +9,15 @@ class Tabelas:
         self.criar_tabela_usuario()
         self.criar_tabela_logins()
         self.criar_tabela_ratelimit()
-
         self.criar_administrador()
+
+        self.criar_tabela_exercicios()
+        self.criar_tabela_treinos()
+        self.criar_tabela_treino_exercicios()
+
+        #desativar depois de roda 1 vez
+        # self.inserir_dados_treino()
+
 
     def criar_tabela_usuario(self):
         sql = """
@@ -79,6 +86,90 @@ class Tabelas:
 
     def criar_tabela_auditoria(self):
         pass
+
+    def criar_tabela_exercicios(self):
+        sql = """
+            CREATE TABLE IF NOT EXISTS exercicios (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL UNIQUE,
+                grupo_muscular VARCHAR(50) NOT NULL,
+                descricao TEXT
+            )
+"""
+        self.banco.executar(sql)
+
+    def criar_tabela_treinos(self):
+        sql = """
+            CREATE TABLE IF NOT EXISTS treinos (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                usuario_id INT NOT NULL,
+                nome VARCHAR(100) NOT NULL,
+                descricao TEXT,
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+            )
+"""
+        self.banco.executar(sql)
+
+    def criar_tabela_treino_exercicios(self):
+        sql = """
+            CREATE TABLE IF NOT EXISTS treino_exercicios (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                treino_id INT NOT NULL,
+                exercicio_id INT NOT NULL,
+                series INT NOT NULL DEFAULT 3,
+                repeticoes INT NOT NULL DEFAULT 10,
+                carga_kg DECIMAL(6,2),
+                descanso_seg INT DEFAULT 60,
+                ordem INT NOT NULL DEFAULT 1,
+                FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE,
+                FOREIGN KEY (exercicio_id) REFERENCES exercicios(id) ON DELETE RESTRICT
+            )
+"""
+        self.banco.executar(sql)
+
+    #===================== Teste para inserir dados para exercicio e treino =============
+    def inserir_exercicios(self):
+        exercicios = [
+            ("Supino reto", "Peito"),
+            ("Triceps testa", "Tríceps"),
+            ("Agachamento livre", "Pernas")
+        ]
+
+        for nome, grupo in exercicios:
+            sql = "INSERT INTO exercicios (nome, grupo_muscular) VALUES (%s, %s)"
+            self.banco.executar(sql, (nome, grupo))
+        print("Exercícios inseridos na tabela")
+
+    def criar_treino(self):
+        usuario_id = 1
+        sql = "INSERT INTO treinos(usuario_id, nome, descricao) VALUES (%s, %s, %s)"
+        self.banco.executar(sql, (usuario_id,"Treino A", "Peito e tríceps"))
+
+    def inserir_exercicios_treino(self):
+        supino = self.banco.consultar_um("SELECT id FROM exercicios WHERE nome = %s", ("Supino reto",))
+        triceps = self.banco.consultar_um("SELECT id FROM exercicios WHERE nome = %s", ("Tríceps testa",))
+        treino_id = 1
+
+        self.banco.executar(
+            """INSERT INTO treino_exercicios
+            (treino_id, exercicio_id, series, repeticoes, carga_kg, ordem)
+            VALUES (%s, %s, %s, %s, %s, %s)""",
+            (treino_id, supino["id"], 4, 8, 60.0, 1)
+        )
+        
+        self.banco.executar(
+            """INSERT INTO treino_exercicios
+            (treino_id, exercicio_id, series, repeticoes, carga_kg, ordem)
+            VALUES (%s, %s, %s, %s, %s, %s)""",
+            (treino_id, triceps["id"], 3, 12, 20.0, 2)
+        )
+        print("Itens adicionados ao treino")
+
+    def inserir_dados_treino(self):
+        self.inserir_exercicios()
+        self.criar_treino()
+        self.inserir_exercicios_treino()
 
     def criar_administrador(self):
 
