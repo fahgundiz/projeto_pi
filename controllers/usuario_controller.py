@@ -25,5 +25,6 @@ class UsuarioController(BaseController):
     def exercicios(self):
         #Buscar a lista de exercícios
         exercicios = self.usuario_service.listar_exercicios()
+        grupo = request.args.get("grupo", "").strip()
 
-        return render_template("exercicios.html", exercicios = exercicios)
+        return render_template("exercicios.html", exercicios = exercicios, grupo = grupo)

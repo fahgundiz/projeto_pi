@@ -1,27 +1,39 @@
 {% extends "base.html" %}
 {% block styles %}
-
+<link rel="stylesheet" href="{{url_for('static', filename='css/exercicios.css')}}">
 {% endblock %}
 
 {% block content %}
 <section class="content">
     <h1>Exercícios</h1>
-    <form action="{{url_for('exercicios')}}">
+
+    <form action="{{url_for('exercicios')}}" method="GET">
         <div class="filtro-grupo">
 
-            <label for="acao">Grupo muscular:</label>
+            <label for="grupo">Grupo muscular:</label>
 
-            <input type="text" id="acao" name="acao" value="{{ acao or '' }}" placeholder="Ex.: Peito">
+            <input type="text" id="grupo" name="grupo" value="{{ grupo or '' }}" placeholder="Ex.: Peito">
+            <button type="submit">Filtrar</button>
 
+            {% if grupo %}
+                <a class="limpar" href="{{ url_for('exercicios') }}">Limpar</a>
+            {% endif %}
         </div>
     </form>
 
     <div class="exercicios-container">
         {% for exercicio in exercicios %}
-            <div class="exercicio">
-                <p>Exercício: {{ exercicio["nome"] }} </p>
-                <p>Grupo muscular: {{ exercicio["grupo_muscular"] }} </p>
-            </div>
+        <article class="exercicio">
+            <span class="grupo-tag">
+                {{ exercicio["grupo_muscular"] }}
+            </span>
+            <h2> {{exercicio["nome"]}} </h2>
+            {% if exercicio["descricao"] %}
+                <p class="descricao"> {{exercicio["descricao"]}} </p>
+            {% endif %}
+        </article>
+        {% else %}
+        <p class="vazio">Nenhum exercício encontrado</p>
         {% endfor %}
     </div>
     
