@@ -65,6 +65,7 @@ class UsuarioRepository:
                 COUNT(te.id) AS total_exercicios
 
             FROM treinos t    
+            
             LEFT JOIN treino_exercicios te
                 ON te.treino_id = t.id
 

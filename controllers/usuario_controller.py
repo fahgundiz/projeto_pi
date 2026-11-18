@@ -55,6 +55,7 @@ class UsuarioController(BaseController):
         #Buscar o id do usuário para buscar todos os treinos do usuário
         usuario_id = session.get("usuario_id")
 
+        
         #Busca todos os treinos do usuário logado
         treinos = self.usuario_service.listar_treinos(usuario_id)
 
@@ -62,7 +63,7 @@ class UsuarioController(BaseController):
 
     def treino_detalhe(self, treino_id):
         usuario_id = session.get("usuario_id")
-
+        
         try:
             treino, exercicios = self.usuario_service.detalhar_treino(treino_id, usuario_id)
         except ValueError:
