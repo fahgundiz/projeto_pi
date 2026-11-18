@@ -18,8 +18,7 @@ class UsuarioService():
 
         nome = nome.strip().capitalize()
         return self.repository.existe_exercicio(nome)
-        
-        
+             
     def cadastrar_exercicio(self, nome, grupo_muscular, descricao = None):
         if not nome or not grupo_muscular:
             raise ValueError("Nome e grupo muscular são obrigatórios")
@@ -37,6 +36,17 @@ class UsuarioService():
     def listar_exercicios(self, grupo_muscular = None):
         return self.repository.listar_exercicios(grupo_muscular = grupo_muscular)
 
+    def listar_treinos(self, usuario_id):
+        return self.repository.listar_treinos(usuario_id)
+
+    def detalhar_treino(self, treino_id, usuario_id):
+        treino = self.repository.buscar_treino(treino_id, usuario_id)
+        if not treino:
+            raise ValueError("Treino não encontrado")
+
+        exercicios = self.repository.listar_exercicios_do_treino(treino_id)
+
+        return treino, exercicios
 
     @staticmethod
     def verificar_senha(senha_digitada, senha_banco_hash):

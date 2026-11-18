@@ -11,7 +11,9 @@ class UsuarioController(BaseController):
     def __init__(self, app):
         self.rotas = [
             ('/exercicios', 'exercicios', self.exercicios, ['GET']),
-            ('/criar_exercicio', 'criar_exercicio', self.criar_exercicio, ['GET','POST']),
+            ('/exercicios/criar', 'criar_exercicio', self.criar_exercicio, ['GET','POST']),
+            ('/treinos', 'treinos', self.treinos, ['GET']),
+            ('/treinos/<int:treino_id>', 'treino_detalhe', self.treino_detalhe, ['GET']),
 
         ]
 
@@ -49,3 +51,21 @@ class UsuarioController(BaseController):
 
         return redirect(url_for('exercicios'))
 
+    def treinos(self):
+        #Buscar o id do usuário para buscar todos os treinos do usuário
+        usuario_id = session.get("usuario_id")
+
+        #Busca todos os treinos do usuário logado
+        treinos = self.usuario_service.listar_treinos(usuario_id)
+
+        return render_template("treinos.html", treinos = treinos)
+
+    def treino_detalhe(self, treino_id):
+        usuario_id = session.get("usuario_id")
+
+        try:
+            treino, exercicios = self.usuario_service.detalhar_treino(treino_id, usuario_id)
+        except ValueError:
+            return redirect(url_for("treinos"))
+
+        return render_template("treino_detalhe.html", treino = treino, exercicios=exercicios)

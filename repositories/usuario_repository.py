@@ -54,3 +54,59 @@ class UsuarioRepository:
         sql += """ ORDER BY nome"""
 
         return self.banco.consultar(sql, tuple(parametros))
+
+    def listar_treinos(self, usuario_id):
+        sql = """
+            SELECT 
+                t.id,
+                t.nome,
+                t.descricao,
+                t.criado_em,
+                COUNT(te.id) AS total_exercicios
+
+            FROM treinos t    
+            LEFT JOIN treino_exercicios te
+                ON te.treino_id = t.id
+
+            WHERE t.usuario_id = %s
+
+            GROUP BY t.id, t.nome, t.descricao, t.criado_em
+            ORDER BY t.criado_em DESC
+"""
+        return self.banco.consultar(sql, (usuario_id,))
+
+    def buscar_treino(self, treino_id, usuario_id):
+        sql = """
+            SELECT 
+                id,
+                nome,
+                descricao,
+                criado_em
+
+            FROM treinos
+            WHERE id = %s and usuario_id = %s
+"""
+        return self.banco.consultar_um(sql, (treino_id, usuario_id))
+
+
+    def listar_exercicios_do_treino(self, treino_id):
+        sql = """
+            SELECT
+                te.ordem,
+                e.nome,
+                e.grupo_muscular,
+                te.series,
+                te.repeticoes,
+                te.carga_kg,
+                te.descanso_seg
+                
+            
+            FROM treino_exercicios te
+
+            JOIN exercicios e 
+                ON e.id = te.exercicio_id
+            
+            WHERE te.treino_id = %s
+            ORDER BY te.ordem
+"""
+        return self.banco.consultar(sql, (treino_id,))

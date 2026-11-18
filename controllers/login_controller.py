@@ -49,6 +49,7 @@ class LoginController(BaseController):
         senha_correta_ou_falsa = self.usuario_service.verificar_senha(senha, usuario_senha)
 
         if email == usuario["email"] and senha_correta_ou_falsa:
+            session["usuario_id"] = usuario_id
             session["usuario_logado"] = True
             session["email"] = email
 
