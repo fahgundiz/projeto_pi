@@ -1,9 +1,39 @@
 {% extends "base.html" %}
-
+{% block styles%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/treinos.css')}}">
+{% endblock %}
 {% block content %}
-    <section class="content-section">
+<section class="content-section">
 
-        <h1>Meus treinos</h1>
-            
-    </section>
+    <h1>Meus treinos</h1>
+    <div class="treinos-container">
+        {% for treino in treinos %}
+        <a class="treino" href="{{url_for('treino_detalhe', treino_id=treino['id'])}}">
+            <div>
+
+                <h2> {{treino["nome"]}} </h2>
+
+                {% if treino["descricao"] %}
+                <p> {{treino["descricao"]}} </p>
+                {% endif %}
+
+            </div>
+
+            <div class="rodape">
+                <span class="badge">
+                    {{treino["total_exercicios"]}}
+                    {{"exercício" if treino["total_exercicios"] == 1 else "exercícios"}}
+                </span>
+
+                <span class="data">
+                    {{treino["criado_em"].strftime("%d/%m/%Y")}}
+                </span>
+
+            </div>
+        </a>
+        {% else %}
+        <p class="vazio">Você ainda não tem nenhum treino</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
