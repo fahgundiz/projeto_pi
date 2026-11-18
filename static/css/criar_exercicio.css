@@ -1,0 +1,102 @@
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+}
+
+/* ---------- Alerta ---------- */
+.alerta {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.alerta.erro {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* ---------- Formulário ---------- */
+.form-exercicio {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.campo label {
+    font-weight: 600;
+}
+
+.campo .opcional {
+    font-weight: 400;
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.campo input,
+.campo textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.campo textarea {
+    resize: vertical;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* ---------- Botões ---------- */
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.acoes button {
+    padding: 10px 22px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.acoes button:hover {
+    background: #1d4ed8;
+}
+
+.acoes .cancelar {
+    color: #666;
+    text-decoration: none;
+}
+
+.acoes .cancelar:hover {
+    text-decoration: underline;
+}

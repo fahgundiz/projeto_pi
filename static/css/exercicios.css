@@ -1,0 +1,119 @@
+.content-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+.content-section h1 {
+    margin-bottom: 20px;
+    color: var(--texto-suave);
+}
+
+/* ---------- Filtro ---------- */
+.filtro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.filtro label {
+    font-weight: 600;
+    color: var(--principal);
+}
+
+.filtro input {
+    padding: 8px 12px;
+    border: 1px solid var(--principal-sombra);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.filtro input:focus {
+    outline: none;
+    border-color: var(--principal-sombra);
+    box-shadow: 0 0 0 1px var(--principal-sombra);
+}
+
+.filtro button {
+    padding: 8px 18px;
+    background: var(--principal);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.filtro button:hover {
+    background: var(--principal-hover);
+}
+
+.filtro .limpar {
+    color: var(--principal);
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 8px 18px;
+    background: transparent;
+    border: 1px solid var(--texto);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: color .1s ease, background .3s ease, border .1s ease;
+}
+.filtro .limpar:hover {
+    color: var(--fundo);
+    border: 1px solid var(--principal);
+    background: var(--principal);
+}
+
+/* ---------- Cards ---------- */
+.exercicios-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.exercicio {
+    background: #fff;
+    border: 1px solid var(--principal-sombra);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.exercicio:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.exercicio h2 {
+    margin: 10px 0 6px;
+    font-size: 1.15rem;
+    color: var(--texto);
+}
+
+.grupo-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.descricao {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #777;
+    padding: 40px 0;
+}

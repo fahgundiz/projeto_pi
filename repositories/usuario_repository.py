@@ -47,10 +47,10 @@ class UsuarioRepository:
 
         if grupo_muscular:
             sql += """
-                AND grupo_muscular = %s
+                AND grupo_muscular LIKE %s
             """
-            parametros.append(grupo_muscular)
+            parametros.append(f"%{grupo_muscular}%")
 
-        sql += """ORDER BY nome"""
+        sql += """ ORDER BY nome"""
 
         return self.banco.consultar(sql, tuple(parametros))
