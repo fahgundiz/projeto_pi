@@ -10,6 +10,7 @@ class Tabelas:
         self.criar_tabela_logins()
         self.criar_tabela_ratelimit()
         self.criar_administrador()
+        self.criar_usuario_teste()
 
         self.criar_tabela_exercicios()
         self.criar_tabela_treinos()
@@ -188,3 +189,21 @@ class Tabelas:
                 VALUES (%s, %s, %s, %s, %s)
             """
             self.banco.executar(sql, ("admin", "admin@gmail.com", senha_hash, "1997-09-09", "administrador"))
+
+    def criar_usuario_teste(self):
+
+        existe_usuario = self.banco.consultar_um(
+            """
+                SELECT id FROM usuarios WHERE usuario = %s
+            """,("teste",)
+        )
+
+        if not existe_usuario:
+            #Criptografar a senha
+            senha_hash = UsuarioService.gerar_hash_senha(senha = "123456")
+
+            sql = """
+                INSERT INTO usuarios (usuario, email, senha, data_nascimento, perfil)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            self.banco.executar(sql, ("teste", "teste@gmail.com", senha_hash, "1997-09-09", "usuario"))

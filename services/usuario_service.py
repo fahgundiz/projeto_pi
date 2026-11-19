@@ -68,9 +68,7 @@ class UsuarioService():
         hash_bytes = bcrypt.hashpw(senha_bytes, salt)
         #Converter os bytes para string e salvar no banco
         hash_texto = hash_bytes.decode('utf-8')
-        print(f"Senha em bytes: {senha_bytes}")
-        print(f"Hash em bytes: {hash_bytes}")
-        print(f"Hash texto: {hash_texto}")
+
 
 
         return hash_texto

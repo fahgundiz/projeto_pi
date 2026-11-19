@@ -78,20 +78,24 @@
 }
 
 .acoes button {
-    padding: 10px 22px;
-    background: #2563eb;
-    color: #fff;
+    padding: 8px 18px;
+    background: var(--principal);
+    color: var(--sobre-principal);
     border: none;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-weight: 800;
+    box-shadow: 0 4px 0 var(--principal-sombra);
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
 }
 
 .acoes button:hover {
-    background: #1d4ed8;
+    background: var(--principal-hover);
 }
-
+.acoes button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--principal-sombra); 
+}
 .acoes .cancelar {
     color: #666;
     text-decoration: none;

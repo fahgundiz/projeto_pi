@@ -39,16 +39,23 @@
 .filtro button {
     padding: 8px 18px;
     background: var(--principal);
-    color: #fff;
+    color: var(--sobre-principal);
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
+    font-weight: 800;
     font-size: 1rem;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 0 4px 0 var(--principal-sombra);
+    transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
 }
 
 .filtro button:hover {
     background: var(--principal-hover);
+}
+
+.filtro button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--principal-sombra);
 }
 
 .filtro .limpar {

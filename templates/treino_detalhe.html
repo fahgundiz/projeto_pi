@@ -1,17 +1,61 @@
 {% extends "base.html" %}
+{% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/treino_detalhe.css')}}">
+{% endblock %}
+{% block content %}
+    <section class="content-section">
+        <a class="voltar" href="{{url_for('treinos')}}">← Voltar aos treinos</a>
 
-{% block content%}
-    <div class="content-section">
-        <h1> {{treino["nome"]}} </h1>
-        <div>
+        <header class="treino-cabecalho">
+            <h1> {{treino["nome"]}} </h1>
+            {% if treino["descricao"] %}
+                <p class="treino-descricao"> {{treino["descricao"]}} </p>
+            {% endif %}
+            <span class="badge">
+                {{ exercicios|length }}
+                {{ "exercício" if exercicios|length == 1 else "exercícios" }}
+            </span>
+        </header>
+        
+        <div class="exercicios-lista">
             {% for exercicio in exercicios %}
-            <div class="exercicio-container">
-                <p>Exercício:  {{exercicio['nome']}} </p>
-                <p>Séries: {{exercicio['series']}} </p>
-                <p>Repetições: {{exercicio['repeticoes']}} </p>
-                <p>Carga: {{exercicio['carga_kg']}} Kg </p>
-                <p>Descanso: {{exercicio['descanso_seg']}} s </p>
-            </div>
+            <article class="exercicio-container">
+                <div class="exercicio-topo">
+                    <span class="ordem"> {{exercicio['ordem']}} </span>
+                    <div>
+                        <h2>{{exercicio["nome"]}} </h2>
+                        <span class="grupo-tag"> {{exercicio["grupo_muscular"]}} </span>
+                    </div>
+                </div>
+
+                <div class="metricas">
+                    <div class="metrica">
+                        <span class="valor">{{exercicio["series"]}} </span>
+                        <span class="rotulo">Séries</span>
+                    </div>
+
+                    <div class="metrica">
+                        <span class="valor">{{exercicio["repeticoes"]}} </span>
+                        <span class="rotulo">Repetições</span>
+                    </div>
+                    
+                    <div class="metrica">
+                        <span class="valor">{{exercicio["carga_kg"] ~ " Kg" if exercicio["carga_kg"] is not none else "-"   }} </span>
+                        <span class="rotulo">Carga</span>
+                    </div>
+
+                    <div class="metrica">
+                        <span class="valor">
+                            {{exercicio["descanso_seg"] ~ " s" if exercicio["descanso_seg"] else "-" }}
+                        </span>
+                        <span class="rotulo">
+                            Descanso
+                        </span>
+
+                    </div>
+                </div>
+
+            </article>
             {% else %}
             <div class="vazio">
                 <p>Nenhum exercício adicionado</p>
@@ -19,6 +63,5 @@
             {% endfor %}
 
         </div>
-
-    </div>
+    </section>
 {% endblock %}
