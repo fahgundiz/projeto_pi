@@ -2,7 +2,23 @@
 
 {% block content%}
     <div class="content-section">
-        TREINO X CLICADO
+        <h1> {{treino["nome"]}} </h1>
+        <div>
+            {% for exercicio in exercicios %}
+            <div class="exercicio-container">
+                <p>Exercício:  {{exercicio['nome']}} </p>
+                <p>Séries: {{exercicio['series']}} </p>
+                <p>Repetições: {{exercicio['repeticoes']}} </p>
+                <p>Carga: {{exercicio['carga_kg']}} Kg </p>
+                <p>Descanso: {{exercicio['descanso_seg']}} s </p>
+            </div>
+            {% else %}
+            <div class="vazio">
+                <p>Nenhum exercício adicionado</p>
+            </div>
+            {% endfor %}
+
+        </div>
 
     </div>
 {% endblock %}
