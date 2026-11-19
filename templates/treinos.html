@@ -9,12 +9,12 @@
     <div class="treinos-container">
         {% for treino in treinos %}
         <a class="treino" href="{{url_for('treino_detalhe', treino_id=treino['id'])}}">
-            <div>
+            <div class="topo">
 
                 <h2> {{treino["nome"]}} </h2>
 
                 {% if treino["descricao"] %}
-                <p> {{treino["descricao"]}} </p>
+                <p class="descricao"> {{treino["descricao"]}} </p>
                 {% endif %}
 
             </div>

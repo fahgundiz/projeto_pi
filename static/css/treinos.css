@@ -1,3 +1,4 @@
+/* ======= CONTAINER DA PÁGINA ======= */
 .content-section {
     max-width: 1000px;
     margin: 0 auto;
@@ -6,4 +7,66 @@
 
 .content-section h1 {
     margin-bottom: 20px;
+}
+.treinos-container {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.treino {
+    display: flex; /* Flex permite personalizar o conteudo do card o topo separado do rodape */
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--fundo);
+    border: 1px solid var(--principal);
+    border-radius: 10px;
+    padding: 18px;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0 0.06);
+}
+
+.treino {
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.treino:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0, 0.1);
+}
+
+.treino h2 {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+.descricao {
+    color: var(--texto-suave);
+    font-size: .95rem;
+    line-height: 1.4;
+}
+
+.rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.badge {
+    padding: 3px 10px;
+    background: var(--principal);
+    color: var(--fundo);
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+}
+.data {
+    color: var(--texto-suave);
+    font-size: .85rem;
+}
+
+.vazio {
+    grid-column: 1/-1;
+    text-align: center;
+    color: var(--texto-suave);
+    padding: 40px 0;
 }
