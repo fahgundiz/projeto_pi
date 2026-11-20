@@ -1,114 +1,111 @@
+/* ====== CONTAINER CENTRAL ======= */
 .content-section {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px 16px;
+    max-width: 800px; /* Largura máxima do container */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 24px 16px; /* Espaçamento interno VERTICAL E HORIZONTAL -> respiro para o texto nao colar no celular */
     color: var(--texto);
     font-family: var(--fonte-corpo);
 }
-
-/* ---------- Voltar ---------- */
+/* ===== LINK VOLTAR ====== */
 .voltar {
-    display: inline-block;
+    display: inline-block; /* Colocar inline-block faz funcionar o margin-bottom */
     margin-bottom: 16px;
     color: var(--texto-suave);
     font-weight: 700;
     text-decoration: none;
-    transition: color 0.2s;
 }
-
 .voltar:hover {
     color: var(--principal);
 }
-
-/* ---------- Cabeçalho do treino ---------- */
+/* ====== CABEÇALHO DO TREINO ======= */
 .treino-cabecalho {
-    margin-bottom: 28px;
+    margin-bottom: 28px; /* Espaçamento com os exercícios da lista */
 }
-
 .treino-cabecalho h1 {
     font-family: var(--fonte-titulo);
     margin-bottom: 8px;
 }
-
 .treino-descricao {
     color: var(--texto-suave);
     line-height: 1.5;
     margin-bottom: 12px;
 }
-
+/* ====== BADGE EM PÍLULA ======= */
 .badge {
     display: inline-block;
     padding: 4px 12px;
     background: var(--concluido-suave);
     color: var(--concluido-texto);
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: .85rem;
     font-weight: 800;
 }
+/* ====== LISTA DE CARDS ======= */
 
-/* ---------- Lista e cards ---------- */
 .exercicios-lista {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    /* Lista flexivel em pilhando um em cima do outro com espacamento igual */
 }
+
+/* ====== CARD do exercício ======= */
 
 .exercicio-container {
     background: var(--superficie);
     border: 2px solid var(--borda);
     border-radius: 16px;
     padding: 18px;
-    transition: transform 0.15s, border-color 0.15s;
+    transition: transform .15s, border-color .15s; /* Define como vai chegar no estado final(hover) de forma suave .15s */
+    /* Receita para o card-> fundo + borda + cantos arredondados + padding */
 }
-
 .exercicio-container:hover {
     transform: translateY(-2px);
     border-color: var(--principal);
 }
-
-/* ---------- Topo do card ---------- */
+/* ====== TOPO DO CARD   ======= */
 .exercicio-topo {
-    display: flex;
-    align-items: center;
+    display: flex; /* Ordem do exercício fica a esquerda e a direita o nome e grupo muscular */
+    align-items: center; /* Centraliza verticalmente a ordem do exercicio com os outros 2 que estao na div */
     gap: 14px;
     margin-bottom: 16px;
 }
-
 .ordem {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    /* flex + align items + justify center centraliza o número dentro do círculo */
+    flex-shrink: 0; /* Impede que o círculo seja espremido caso o nome do exercício seja mt longo*/
     width: 38px;
     height: 38px;
     background: var(--principal);
     color: var(--sobre-principal);
-    border-radius: 50%;
+    border-radius: 50%; /* Vira círculo*/
     font-weight: 800;
-    box-shadow: 0 3px 0 var(--principal-sombra);  /* "degrau" 3D, igual aos botões */
+    box-shadow: 0 3px 0 var(--principal-sombra);
 }
-
+/* ====== NOME E TAG DO GRUPO MUSCULAR ====== */
 .exercicio-topo h2 {
     font-family: var(--fonte-titulo);
     font-size: 1.15rem;
     margin-bottom: 4px;
 }
-
 .grupo-tag {
     display: inline-block;
-    padding: 2px 10px;
     background: var(--principal-suave);
     color: var(--principal);
+    padding: 2px 10px;
     border-radius: 999px;
-    font-size: 0.78rem;
+    font-size: .8rem;
     font-weight: 800;
 }
 
-/* ---------- Métricas ---------- */
+/* ====== METRICAS ====== */
 .metricas {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     gap: 10px;
+    /* Cria quantas colunas de 90px, auto-fit permite que os 4blocos estiquem e ocupem a linha inteira */
 }
 
 .metrica {
@@ -120,21 +117,18 @@
     border: 1px solid var(--borda);
     border-radius: 12px;
 }
-
 .metrica .valor {
-    font-size: 1.2rem;
+    font-size: 1.2rem;   
     font-weight: 800;
 }
-
 .metrica .rotulo {
-    font-size: 0.75rem;
+    font-size: .75rem;
     color: var(--texto-suave);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.04rem;
 }
-
-/* ---------- Vazio ---------- */
+/* ===== ESTADO VAZIO ===== */
 .vazio {
     text-align: center;
     color: var(--texto-suave);
