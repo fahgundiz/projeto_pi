@@ -16,7 +16,7 @@ from flask_limiter.util import get_remote_address
 app = Flask(__name__)
 
 limite = {
-    "quantidade_requisicoes" : 2,
+    "quantidade_requisicoes" : 100,
     "periodo" : "minute"
 }
 

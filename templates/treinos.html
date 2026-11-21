@@ -4,8 +4,11 @@
 {% endblock %}
 {% block content %}
 <section class="content-section">
+    <div class="cabecalho">
+        <h1>Meus treinos</h1>
+        <a class="btn-criar" href="#">Criar</a>
+    </div>
 
-    <h1>Meus treinos</h1>
     <div class="treinos-container">
         {% for treino in treinos %}
         <a class="treino" href="{{url_for('treino_detalhe', treino_id=treino['id'])}}">
