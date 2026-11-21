@@ -80,6 +80,15 @@ class Banco:
             self.conexao.rollback()
             raise
 
+    def executar_sem_commit(self, sql, parametros = None):
+        self.cursor.execute(sql, parametros or ())
+        return self.cursor.lastrowid
+
+    def desfazer(self):
+        self.conexao.rollback()
+
+    def confirmar(self):
+        self.conexao.commit()
     def consultar(self, sql, parametros=None):
         self.cursor.execute(sql, parametros or ())
         return self.cursor.fetchall()
