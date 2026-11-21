@@ -89,7 +89,6 @@ class UsuarioRepository:
 """
         return self.banco.consultar_um(sql, (treino_id, usuario_id))
 
-
     def listar_exercicios_do_treino(self, treino_id):
         sql = """
             SELECT
@@ -111,3 +110,30 @@ class UsuarioRepository:
             ORDER BY te.ordem
 """
         return self.banco.consultar(sql, (treino_id,))
+
+    def criar_treino_completo(self, usuario_id, nome, descricao, itens):
+        """Itens: lista de dicionario com exercicio_id, series, repeticoes, carga_kg, descanso_seg"""
+        try:
+            #Cria o treino
+            treino_id = self.banco.executar_sem_commit(
+                "INSERT INTO treinos (usuario_id, nome, descricao) VALUES (%s, %s, %s)", (usuario_id, nome, descricao)
+            )
+
+            #Insere os "itens"
+            for ordem, item in enumerate(itens, start=1):
+                self.banco.executar_sem_commit(
+                    """
+                        INSERT INTO treino_exercicios
+                        (treino_id, exercicio_id, series, repeticoes, carga_kg, descanso_seg, ordem)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    """,
+                    (treino_id, item["exercicio_id"], item["series"], item["repeticoes"], item["carga_kg"], item["descanso_seg"], ordem)
+                )
+
+            self.banco.confirmar()
+            return treino_id
+
+
+        except Exception:
+            self.banco.desfazer()
+            raise

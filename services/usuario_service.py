@@ -48,6 +48,23 @@ class UsuarioService():
 
         return treino, exercicios
 
+    def criar_treino(self, usuario_id, nome, descricao, itens):
+        if not nome:
+            raise ValueError("O treino precisa ter um nome")
+        if not itens:
+            raise ValueError("Adicione pelo menos um exercício")
+
+        #Armazena os ids dos exercícios numa lista
+        ids = [i["exercicio_id"] for i in itens]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Existem exercícios repetidos no treino")
+
+        for item in itens:
+            if item["series"] <= 0 or item["repeticoes"] <= 0:
+                raise ValueError("Séries e repetições devem ser maiores que zero")
+
+        return self.repository.criar_treino_completo(usuario_id, nome, descricao, itens)
+
     @staticmethod
     def verificar_senha(senha_digitada, senha_banco_hash):
         #Converter a senha_digitada e a senha_banco_hash em bytes

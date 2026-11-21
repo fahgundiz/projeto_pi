@@ -89,6 +89,7 @@ class Banco:
 
     def confirmar(self):
         self.conexao.commit()
+        
     def consultar(self, sql, parametros=None):
         self.cursor.execute(sql, parametros or ())
         return self.cursor.fetchall()
