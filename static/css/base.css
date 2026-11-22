@@ -25,6 +25,12 @@
   --fonte-titulo: "Nunito", system-ui, sans-serif;
   --fonte-corpo:  "Nunito", system-ui, sans-serif;
   --altura-nav: 72px;
+
+  /* Erros */
+  --erro:        #991b1b;
+  --erro-suave:  #fee2e2;
+  --erro-borda:  #fca5a5;
+  --erro-hover:  #fecaca;
 }
 
 * {
