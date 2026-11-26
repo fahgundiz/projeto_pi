@@ -45,6 +45,7 @@ class LoginController(BaseController):
 
         usuario_id = usuario["id"]
         usuario_senha = usuario["senha"]
+        usuario_perfil = usuario["perfil"]
 
         senha_correta_ou_falsa = self.usuario_service.verificar_senha(senha, usuario_senha)
 
@@ -52,6 +53,7 @@ class LoginController(BaseController):
             session["usuario_id"] = usuario_id
             session["usuario_logado"] = True
             session["email"] = email
+            session["perfil_logado"] = usuario_perfil
 
             #Registrar login na tabela logins
             self.login_service.registrar_login(usuario_id)

@@ -3,6 +3,7 @@ from flask import Flask, session, render_template, request
 from controllers.html_base_controller import HTMLBaseController
 from controllers.login_controller import LoginController
 from controllers.usuario_controller import UsuarioController
+from controllers.auditoria_controller import AuditoriaController
 from database.connection import Banco
 from database.tables import Tabelas
 
@@ -62,6 +63,7 @@ def limite_excedido(e): #O parametro "e" recebe o erro gerado
 HTMLBaseController(app)
 LoginController(app)
 UsuarioController(app)
+AuditoriaController(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
