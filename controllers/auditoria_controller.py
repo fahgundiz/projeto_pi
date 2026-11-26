@@ -1,5 +1,7 @@
 from controllers.base_controller import BaseController
 from database.connection import Banco
+from repositories.auditoria_repository import AuditoriaRepository
+from services.auditoria_service import AuditoriaService
 from flask import render_template
 
 
@@ -12,8 +14,12 @@ class AuditoriaController(BaseController):
 
         self.banco = Banco()
         #Adicionar self.repository
-
+        self.repository = AuditoriaRepository(self.banco)
         #Adicionar self.service
+        self.service = AuditoriaService(self.repository)
+
 
     def auditoria(self):
-        return render_template("auditoria.html")
+        auditorias = self.service.listar_auditoria()
+        
+        return render_template("auditoria.html", auditorias = auditorias)

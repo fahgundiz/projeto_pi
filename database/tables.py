@@ -95,6 +95,7 @@ class Tabelas:
                 acao VARCHAR(50) NOT NULL,
                 entidade VARCHAR(50) NOT NULL,
                 entidade_id INT NULL,
+                descricao VARCHAR(255),
                 ip VARCHAR(45),
                 data_hora DATETIME NOT NULL
                     DEFAULT CURRENT_TIMESTAMP,

@@ -5,8 +5,8 @@ class AuditoriaRepository:
 
     def registrar_auditoria(self, usuario_id, acao, entidade, entidade_id = None, descricao = None, ip = None):
         sql = """
-            INSERT INTO auditoria (usuario_id, acao, entidade, entidade_id, ip)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO auditoria (usuario_id, acao, entidade, entidade_id, descricao, ip)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
         valores = (usuario_id, acao, entidade, entidade_id, descricao, ip)
         self.banco.executar(sql, valores)
@@ -18,11 +18,10 @@ class AuditoriaRepository:
                 a.id, 
                 a.usuario_id,
                 a.acao,
-                entidade,
-                entidade_id,
-                descricao,
-                ip,
-                data_hora,
+                a.entidade,
+                a.entidade_id,
+                a.ip,
+                a.data_hora,
                 u.email,
                 u.usuario
 
@@ -37,22 +36,22 @@ class AuditoriaRepository:
 
         if usuario_id:
             sql += """
-                AND usuario_id = %s
+                AND u.usuario_id = %s
             """
             parametros.append(f"{usuario_id}")
 
         if acao:
             sql += """
-                AND acao = %s
+                AND a.acao = %s
             """
             parametros.append(f"{acao}")
 
         if entidade:
             sql += """
-                AND entidade = %s
+                AND a.entidade = %s
             """
             parametros.append(f"{entidade}")
 
-        sql += " ORDER BY id"
+        sql += " ORDER BY a.id"
 
         return self.banco.consultar(sql, tuple(parametros))
