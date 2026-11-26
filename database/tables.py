@@ -9,6 +9,8 @@ class Tabelas:
         self.criar_tabela_usuario()
         self.criar_tabela_logins()
         self.criar_tabela_ratelimit()
+        self.criar_tabela_auditoria()
+
         self.criar_administrador()
         self.criar_usuario_teste()
 
@@ -86,7 +88,24 @@ class Tabelas:
         self.banco.executar(sql)
 
     def criar_tabela_auditoria(self):
-        pass
+        sql = """
+            CREATE TABLE IF NOT EXISTS auditoria (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                usuario_id INT NULL,
+                acao VARCHAR(50) NOT NULL,
+                entidade VARCHAR(50) NOT NULL,
+                entidade_id INT NULL,
+                ip VARCHAR(45),
+                data_hora DATETIME NOT NULL
+                    DEFAULT CURRENT_TIMESTAMP,
+                
+                FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+                ON DELETE SET NULL
+            
+            )
+        """
+
+        self.banco.executar(sql)
 
     def criar_tabela_exercicios(self):
         sql = """
@@ -96,7 +115,7 @@ class Tabelas:
                 grupo_muscular VARCHAR(50) NOT NULL,
                 descricao TEXT
             )
-"""
+        """
         self.banco.executar(sql)
 
     def criar_tabela_treinos(self):
