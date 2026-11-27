@@ -2,7 +2,7 @@ from controllers.base_controller import BaseController
 from database.connection import Banco
 from repositories.auditoria_repository import AuditoriaRepository
 from services.auditoria_service import AuditoriaService
-from flask import render_template
+from flask import render_template, request
 
 
 class AuditoriaController(BaseController):
@@ -20,6 +20,10 @@ class AuditoriaController(BaseController):
 
 
     def auditoria(self):
-        auditorias = self.service.listar_auditoria()
+
+        busca = request.args.get("busca", "").strip()
+
+        auditorias = self.service.listar_auditoria(busca or None)
+
         
-        return render_template("auditoria.html", auditorias = auditorias)
+        return render_template("auditoria.html", auditorias = auditorias, busca = busca)

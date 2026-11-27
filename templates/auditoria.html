@@ -1,9 +1,41 @@
 {% extends "base.html" %}
 {% block styles %}
-
+<link rel="stylesheet" href="{{url_for('static', filename='css/auditoria.css')}}">
 {% endblock %}
 
 {% block content %}
-    <h1>Auditoria</h1>
-    <p> {{auditorias}} </p>
+    <form class="form-auditoria" action="{{url_for('auditoria')}}" method="GET">
+        <h1>Auditoria</h1>
+        <div class="filtro-busca">
+            <label for="busca">Busque pelo ID, ação ou entidade:</label>
+            <input type="text" id="busca" name="busca" value="{{busca}}" placeholder="Ex: 1 ou Login ou Login falha">
+            
+            <button type="submit">Filtrar</button>
+            <a class="limpar" href="{{url_for('auditoria')}}">Limpar</a>
+
+        </div>
+    </form>
+    {% for auditoria in auditorias %}
+    <div class="auditoria-container">
+        <div class="auditoria-card">
+            <div class="topo">
+                <span class="pilula"> {{auditoria["acao"]}} </span>
+                <span class="horario"> {{auditoria["data_hora"].strftime('%d/%m/%Y %H:%M')}} </span>
+            </div>
+            <hr class="linha">
+            <div class="descricao">
+                <h2>Descrição</h2>
+                <p> {{auditoria["descricao"]}} </p>
+            </div>
+            <div class="inferior">
+                <span>ID da auditoria: {{auditoria["id"]}} </span>
+                <span>Entidade: {{auditoria["entidade"]}} </span>
+                <span>Usuário responsável: {{auditoria["usuario"]}} </span>
+                <span>IP: {{auditoria["ip"]}} </span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
 {% endblock %}

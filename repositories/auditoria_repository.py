@@ -20,6 +20,7 @@ class AuditoriaRepository:
                 a.acao,
                 a.entidade,
                 a.entidade_id,
+                a.descricao,
                 a.ip,
                 a.data_hora,
                 u.email,
@@ -36,7 +37,7 @@ class AuditoriaRepository:
 
         if usuario_id:
             sql += """
-                AND u.usuario_id = %s
+                AND a.usuario_id = %s
             """
             parametros.append(f"{usuario_id}")
 
